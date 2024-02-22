@@ -1,0 +1,92 @@
+
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+/* ... (estilos anteriores) ... */
+
+.header, .main {
+    /*margin-top: 10rem;*/
+    max-width: 80%;
+}
+
+.progress-container {
+    width: 21rem;
+    height: 35px;
+    background-color: #ddd;
+    margin-top: 2rem;
+    position: relative;
+}
+
+.progress-bar {
+    width: 0;
+    height: 100%;
+    background-color: #4CAF50; /* Color de la barra de progreso */
+    transition: width 0.3s ease-in-out; /* Animación de la barra de progreso */
+}
+
+#progress-text {
+    position: absolute;
+    inset: 30%;
+    color: #fff;
+    font-weight: bold;
+}
+
+.button-container {
+    margin-top: 100px;
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+#encender-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#apagar-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+:is(#encender-btn, #apagar-btn):disabled{
+    opacity: .6;
+}
+/* Estilos para el contenedor del logo en la esquina superior izquierda */
+.logo-top-left {
+    position: fixed;
+    top: 10px; /* Distancia desde la parte superior */
+    left: 10px; /* Distancia desde la izquierda */
+    z-index: 999; /* Asegura que el logo esté por encima de otros elementos */
+}
+
+
+
+/* Estilos para el contenedor del logo */
+.logo-container {
+    position: fixed;
+    bottom: 10px; /* Distancia desde la parte inferior */
+    right: 10px; /* Distancia desde la derecha */
+    z-index: 999; /* Asegura que el logo esté por encima de otros elementos */
+}
+
+/* Estilos para el logo */
+.logo {
+    width: 150px; /* Ancho del logo */
+    height: auto; /* Altura automática para mantener la proporción */
+}

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botones de Encendido y Apagado</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1>Control de Encendido y Apagado</h1>
+        <h2>Servidor Jenckins</h2>
+    </header>
+
+
+    <main class="main">
+        <article>
+            <p>EC2</p>
+            <div class="button-container">
+                <button id="encender-ec2" class="button">Encender</button>
+                <button id="apagar-ec2" class="button">Apagar</button>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar-ec2" id="progress-bar-ec2"></div>
+                <span id="progress-text-ec2"></span>
+            </div>
+        </article>
+        <article>
+            <p>RDS</p>
+            <div class="button-container">
+                <button id="encender-rds" class="button">Encender</button>
+                <button id="apagar-rds" class="button">Apagar</button>
+            </div>
+    
+            <div class="progress-container">
+                <div class="progress-bar-rds" id="progress-bar-rds"></div>
+                <span id="progress-text-rds"></span>
+            </div>
+        </article>
+
+
+
+        <!-- Contenedor para la sección de notas -->
+        <div class="notes-container">
+            <h2>Resultado:</h2>
+            <p id="notas">.</p>
+        </div>
+    </main>
+
+
+
+
+    <!-- Logo en la esquina superior izquierda -->
+    <div class="logo-top-left">
+        <img src="https://control-encendido-apagado.s3.amazonaws.com/A%26C.PNG" alt="Logo" class="logo2">
+    </div>
+
+
+
+
+    <!-- Agrega un contenedor para el logo en la esquina inferior derecha -->
+    <div class="logo-container">
+        <img src="https://control-encendido-apagado.s3.amazonaws.com/pragma.PNG" alt="Logo" class="logo">
+    </div>
+
+
+    <!-- ... (código posterior) ... -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+        function toggleDisableBtn(selector, state) {
+            state
+                ? $(selector).attr('disabled', true)
+                : $(selector).removeAttr('disabled');
+        }
+
+        function beginProgress(selector,progressColor, finishMessage) {
+
+            $(selector.progressbar).css("width", "0");
+            $(selector.progressbar).css("background-color", progressColor);
+            // Simula una operación de encendido (cambia esto según tus necesidades)
+            let progress = 0;
+            let interval_ref = null;
+            toggleDisableBtn(selector.on, true);
+            toggleDisableBtn(selector.off, true);
+            interval_ref = setInterval(() => {
+                $(selector.progressbar).css("width", `${progress}%`);
+                if (progress === 100) {
+                    $("#notas").text(finishMessage);
+                    toggleDisableBtn(selector.on, false);
+                    toggleDisableBtn(selector.off, false);
+                    clearInterval(interval_ref);
+
+                }
+                $(selector.progresstext).text(`${progress}%`);
+                progress += 20;
+            }, 10000);
+        }
+
+        $(document).ready(function () {
+            const colorVerdeEc2 = $("#encender-ec2").css("background-color");
+            const selectorEc2 = {
+                on: "#encender-ec2",
+                off: "#apagar-ec2",
+                progressbar: ".progress-bar-ec2",
+                progresstext: "#progress-text-ec2"
+            }
+            $("#encender-ec2").click(() => beginProgress(selectorEc2,colorVerdeEc2, "Encendido exitoso. ¡El dispositivo está encendido!"));
+
+            const colorRojoEc2 = $("#apagar-ec2").css("background-color");
+
+            $("#apagar-ec2").click(() => beginProgress(selectorEc2,colorRojoEc2, "Apagado exitoso. ¡El dispositivo está apagado!"));
+            const colorVerdeRds = $("#encender-rds").css("background-color");
+
+            const selectorRds = {
+                on: "#encender-rds",
+                off: "#apagar-rds",
+                progressbar: ".progress-bar-rds",
+                progresstext: "#progress-text-rds"
+            }
+
+            $("#encender-rds").click(() => beginProgress(selectorRds,colorVerdeRds, "Encendido exitoso. ¡El dispositivo está encendido!"));
+
+            const colorRojoRds = $("#apagar-rds").css("background-color");
+
+            $("#apagar-rds").click(() => beginProgress(selectorRds,colorRojoRds, "Apagado exitoso. ¡El dispositivo está apagado!"));
+
+        });
+    </script>
+    <script src="encendido_ec2.js"></script>
+    <script src="apagado_ec2.js"></script>
+
+</body>
+
+</html>
