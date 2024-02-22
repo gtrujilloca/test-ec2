@@ -15,8 +15,35 @@ body {
 /* ... (estilos anteriores) ... */
 
 .header, .main {
-    /*margin-top: 10rem;*/
     max-width: 80%;
+}
+
+.actions-container {
+    display: flex;
+    justify-content: space-between;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+@media (width > 768px) {
+    .actions-container {
+        flex-wrap: nowrap;
+    }
+}
+
+.actions-container__item {
+    border: 1px solid #a39a9aa3;
+    padding: 1rem;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.actions-container__item > p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
 }
 
 .progress-container {
@@ -27,14 +54,14 @@ body {
     position: relative;
 }
 
-.progress-bar {
+.progress-bar-ec2, .progress-bar-rds {
     width: 0;
     height: 100%;
     background-color: #4CAF50; /* Color de la barra de progreso */
     transition: width 0.3s ease-in-out; /* Animación de la barra de progreso */
 }
 
-#progress-text {
+#progress-text-ec2, #progress-text-rds {
     position: absolute;
     inset: 30%;
     color: #fff;
@@ -42,7 +69,7 @@ body {
 }
 
 .button-container {
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .button {
@@ -54,17 +81,28 @@ body {
     margin: 5px;
 }
 
-#encender-btn {
+.notes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.notes-container > p {
+    margin: 4px;
+}
+
+#encender-ec2, #encender-rds {
     background-color: #4CAF50;
     color: white;
 }
 
-#apagar-btn {
+#apagar-ec2, #apagar-rds {
     background-color: #f44336;
     color: white;
 }
 
-:is(#encender-btn, #apagar-btn):disabled{
+:is(#encender-ec2, #apagar-ec2, #encender-rds, #apagar-rds):disabled{
     opacity: .6;
 }
 /* Estilos para el contenedor del logo en la esquina superior izquierda */

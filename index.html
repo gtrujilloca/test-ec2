@@ -16,37 +16,40 @@
 
 
     <main class="main">
-        <article>
-            <p>EC2</p>
-            <div class="button-container">
-                <button id="encender-ec2" class="button">Encender</button>
-                <button id="apagar-ec2" class="button">Apagar</button>
-            </div>
+        <section class="actions-container">
+            <article class="actions-container__item">
+                <p>EC2</p>
+                <div class="button-container">
+                    <button id="encender-ec2" class="button">Encender</button>
+                    <button id="apagar-ec2" class="button">Apagar</button>
+                </div>
 
-            <div class="progress-container">
-                <div class="progress-bar-ec2" id="progress-bar-ec2"></div>
-                <span id="progress-text-ec2"></span>
-            </div>
-        </article>
-        <article>
-            <p>RDS</p>
-            <div class="button-container">
-                <button id="encender-rds" class="button">Encender</button>
-                <button id="apagar-rds" class="button">Apagar</button>
-            </div>
-    
-            <div class="progress-container">
-                <div class="progress-bar-rds" id="progress-bar-rds"></div>
-                <span id="progress-text-rds"></span>
-            </div>
-        </article>
+                <div class="progress-container">
+                    <div class="progress-bar-ec2" id="progress-bar-ec2"></div>
+                    <span id="progress-text-ec2"></span>
+                </div>
+            </article>
+            <article class="actions-container__item">
+                <p>RDS</p>
+                <div class="button-container">
+                    <button id="encender-rds" class="button">Encender</button>
+                    <button id="apagar-rds" class="button">Apagar</button>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar-rds" id="progress-bar-rds"></div>
+                    <span id="progress-text-rds"></span>
+                </div>
+            </article>
+        </section>
 
 
 
         <!-- Contenedor para la sección de notas -->
         <div class="notes-container">
             <h2>Resultado:</h2>
-            <p id="notas">.</p>
+            <p id="notas-ec2"></p>
+            <p id="notas-rds"></p>
         </div>
     </main>
 
@@ -78,7 +81,7 @@
         }
 
         function beginProgress(selector,progressColor, finishMessage) {
-
+            $(selector.msg).text("");
             $(selector.progressbar).css("width", "0");
             $(selector.progressbar).css("background-color", progressColor);
             // Simula una operación de encendido (cambia esto según tus necesidades)
@@ -89,7 +92,7 @@
             interval_ref = setInterval(() => {
                 $(selector.progressbar).css("width", `${progress}%`);
                 if (progress === 100) {
-                    $("#notas").text(finishMessage);
+                    $(selector.msg).text(finishMessage);
                     toggleDisableBtn(selector.on, false);
                     toggleDisableBtn(selector.off, false);
                     clearInterval(interval_ref);
@@ -97,7 +100,7 @@
                 }
                 $(selector.progresstext).text(`${progress}%`);
                 progress += 20;
-            }, 10000);
+            }, 1000);
         }
 
         $(document).ready(function () {
@@ -106,27 +109,29 @@
                 on: "#encender-ec2",
                 off: "#apagar-ec2",
                 progressbar: ".progress-bar-ec2",
-                progresstext: "#progress-text-ec2"
+                progresstext: "#progress-text-ec2",
+                msg: "#notas-ec2"
             }
-            $("#encender-ec2").click(() => beginProgress(selectorEc2,colorVerdeEc2, "Encendido exitoso. ¡El dispositivo está encendido!"));
+            $("#encender-ec2").click(() => beginProgress(selectorEc2,colorVerdeEc2, "Encendido exitoso. ¡El dispositivo EC2 está encendido!"));
 
             const colorRojoEc2 = $("#apagar-ec2").css("background-color");
 
-            $("#apagar-ec2").click(() => beginProgress(selectorEc2,colorRojoEc2, "Apagado exitoso. ¡El dispositivo está apagado!"));
+            $("#apagar-ec2").click(() => beginProgress(selectorEc2,colorRojoEc2, "Apagado exitoso. ¡El dispositivo EC2 está apagado!"));
             const colorVerdeRds = $("#encender-rds").css("background-color");
 
             const selectorRds = {
                 on: "#encender-rds",
                 off: "#apagar-rds",
                 progressbar: ".progress-bar-rds",
-                progresstext: "#progress-text-rds"
+                progresstext: "#progress-text-rds",
+                msg: "#notas-rds"
             }
 
-            $("#encender-rds").click(() => beginProgress(selectorRds,colorVerdeRds, "Encendido exitoso. ¡El dispositivo está encendido!"));
+            $("#encender-rds").click(() => beginProgress(selectorRds,colorVerdeRds, "Encendido exitoso. ¡El dispositivo RDS está encendido!"));
 
             const colorRojoRds = $("#apagar-rds").css("background-color");
 
-            $("#apagar-rds").click(() => beginProgress(selectorRds,colorRojoRds, "Apagado exitoso. ¡El dispositivo está apagado!"));
+            $("#apagar-rds").click(() => beginProgress(selectorRds,colorRojoRds, "Apagado exitoso. ¡El dispositivo RDS está apagado!"));
 
         });
     </script>
